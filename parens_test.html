@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body bgcolor="black">
+    <script>
+        var max = 0;
+        var first_test = 0;
+        var temp_list = [];
+        var p1 = 0;
+        var p2 = 0;
+        function validParentheses(parens) {
+            for (var i = 0; i < parens.length; i++) {
+                if (parens[i] === '(') {
+                    p1++;
+                    temp_list.push(p1);
+                }
+                else if (parens[i] === ')') {
+                    p2--;
+                    temp_list.push(p2);
+                }
+                else {
+                    return false;
+                }
+            }
+            temp_list.forEach(function (el) {
+                first_test += el;
+            })
+            if (first_test !== 0) {
+                return false;
+            }
+            else {
+                for (var i = 0; i < temp_list.length; i++) {
+                    var is_valid = false;
+                    if (temp_list[i] > max) {
+                        max = temp_list[i];
+                        for (var j = i + 1; j < temp_list.length; j++) {
+                            if (temp_list[i] === Math.abs(temp_list[j])) {
+                                is_valid = true;
+                                break;
+                            }
+                        }
+                        if (!is_valid) {
+                            return false;
+                        }
+                    }
+                    else if (temp_list[i] < max && Math.abs(temp_list[i]) > max) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        validParentheses("()()");
+    </script>
+</body>
+
+</html>
